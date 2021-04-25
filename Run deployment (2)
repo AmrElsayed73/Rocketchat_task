@@ -1,0 +1,1527 @@
+# Here i am going to make Terraform apply to run the deployment 
+
+C:\Users\LMNX7392\Desktop\Terraform_lab\system_task>terraform apply
+aws_security_group.allow_ssh: Refreshing state... [id=sg-007d69de017343706]
+aws_instance.myecs: Refreshing state... [id=i-0d3a351474d5dbe86]
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.myecs will be created
+  + resource "aws_instance" "myecs" {
+      + ami                          = "ami-05b622b5fa0269787"
+      + arn                          = (known after apply)
+      + associate_public_ip_address  = (known after apply)
+      + availability_zone            = (known after apply)
+      + cpu_core_count               = (known after apply)
+      + cpu_threads_per_core         = (known after apply)
+      + get_password_data            = false
+      + host_id                      = (known after apply)
+      + id                           = (known after apply)
+      + instance_state               = (known after apply)
+      + instance_type                = "t2.micro"
+      + ipv6_address_count           = (known after apply)
+      + ipv6_addresses               = (known after apply)
+      + key_name                     = "myseckey"
+      + outpost_arn                  = (known after apply)
+      + password_data                = (known after apply)
+      + placement_group              = (known after apply)
+      + primary_network_interface_id = (known after apply)
+      + private_dns                  = (known after apply)
+      + private_ip                   = (known after apply)
+      + public_dns                   = (known after apply)
+      + public_ip                    = (known after apply)
+      + secondary_private_ips        = (known after apply)
+      + security_groups              = (known after apply)
+      + source_dest_check            = true
+      + subnet_id                    = (known after apply)
+      + tenancy                      = (known after apply)
+      + vpc_security_group_ids       = (known after apply)
+
+      + ebs_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + snapshot_id           = (known after apply)
+          + tags                  = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+
+      + enclave_options {
+          + enabled = (known after apply)
+        }
+
+      + ephemeral_block_device {
+          + device_name  = (known after apply)
+          + no_device    = (known after apply)
+          + virtual_name = (known after apply)
+        }
+
+      + metadata_options {
+          + http_endpoint               = (known after apply)
+          + http_put_response_hop_limit = (known after apply)
+          + http_tokens                 = (known after apply)
+        }
+
+      + network_interface {
+          + delete_on_termination = (known after apply)
+          + device_index          = (known after apply)
+          + network_interface_id  = (known after apply)
+        }
+
+      + root_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + tags                  = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+    }
+
+  # aws_security_group.allow_ssh will be created
+  + resource "aws_security_group" "allow_ssh" {
+      + arn                    = (known after apply)
+      + description            = "Managed by Terraform"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Outbound Allowed"
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 65535
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "SSH into ecs"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = "ssh_ecs"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + vpc_id                 = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_security_group.allow_ssh: Creating...
+aws_security_group.allow_ssh: Creation complete after 10s [id=sg-04283cd398c2c613e]
+aws_instance.myecs: Creating...
+aws_instance.myecs: Still creating... [10s elapsed]
+aws_instance.myecs: Still creating... [20s elapsed]
+aws_instance.myecs: Still creating... [30s elapsed]
+aws_instance.myecs: Provisioning with 'remote-exec'...
+aws_instance.myecs (remote-exec): Connecting to remote host via SSH...
+aws_instance.myecs (remote-exec):   Host: 52.41.175.112
+aws_instance.myecs (remote-exec):   User: ec2-user
+aws_instance.myecs (remote-exec):   Password: false
+aws_instance.myecs (remote-exec):   Private key: true
+aws_instance.myecs (remote-exec):   Certificate: false
+aws_instance.myecs (remote-exec):   SSH Agent: false
+aws_instance.myecs (remote-exec):   Checking Host Key: false
+aws_instance.myecs (remote-exec):   Target Platform: unix
+aws_instance.myecs (remote-exec): Connecting to remote host via SSH...
+aws_instance.myecs (remote-exec):   Host: 52.41.175.112
+aws_instance.myecs (remote-exec):   User: ec2-user
+aws_instance.myecs (remote-exec):   Password: false
+aws_instance.myecs (remote-exec):   Private key: true
+aws_instance.myecs (remote-exec):   Certificate: false
+aws_instance.myecs (remote-exec):   SSH Agent: false
+aws_instance.myecs (remote-exec):   Checking Host Key: false
+aws_instance.myecs (remote-exec):   Target Platform: unix
+aws_instance.myecs: Still creating... [40s elapsed]
+aws_instance.myecs (remote-exec): Connected!
+aws_instance.myecs (remote-exec): Installing docker
+aws_instance.myecs (remote-exec): Loaded plugins: extras_suggestions,
+aws_instance.myecs (remote-exec):               : langpacks, priorities,
+aws_instance.myecs (remote-exec):               : update-motd
+aws_instance.myecs (remote-exec): Existing lock /var/run/yum.pid: another copy is running as pid 3125.
+aws_instance.myecs (remote-exec): Another app is currently holding the yum lock; waiting for it to exit...
+aws_instance.myecs (remote-exec):   The other application is: yum
+aws_instance.myecs (remote-exec):     Memory : 145 M RSS (438 MB VSZ)
+aws_instance.myecs (remote-exec):     Started: Sun Apr 25 01:44:41 2021 - 00:09 ago
+aws_instance.myecs (remote-exec):     State  : Running, pid: 3125
+aws_instance.myecs (remote-exec): Existing lock /var/run/yum.pid: another copy is running as pid 3232.
+aws_instance.myecs (remote-exec): Another app is currently holding the yum lock; waiting for it to exit...
+aws_instance.myecs (remote-exec):   The other application is: yum
+aws_instance.myecs (remote-exec):     Memory : 102 M RSS (321 MB VSZ)
+aws_instance.myecs (remote-exec):     Started: Sun Apr 25 01:44:41 2021 - 00:11 ago
+aws_instance.myecs (remote-exec):     State  : Running, pid: 3232
+aws_instance.myecs (remote-exec): Cleaning repos: amzn2-core
+aws_instance.myecs (remote-exec):               : amzn2extra-docker
+aws_instance.myecs (remote-exec): 12 metadata files removed
+aws_instance.myecs (remote-exec): 4 sqlite files removed
+aws_instance.myecs (remote-exec): 0 metadata files removed
+aws_instance.myecs: Still creating... [50s elapsed]
+aws_instance.myecs (remote-exec): Loaded plugins: extras_suggestions,
+aws_instance.myecs (remote-exec):               : langpacks, priorities,
+aws_instance.myecs (remote-exec):               : update-motd
+aws_instance.myecs (remote-exec): amzn2-core       | 3.7 kB     00:00
+aws_instance.myecs (remote-exec): amzn2extra-docke | 3.0 kB     00:00
+aws_instance.myecs (remote-exec): (1/5): amzn2-core/ | 2.5 kB   00:00
+aws_instance.myecs (remote-exec): (2/5): amzn2-core/ | 367 kB   00:00
+aws_instance.myecs (remote-exec): (3/5): amzn2extra- |   76 B   00:00
+aws_instance.myecs (remote-exec): (4/5): amzn2extra- |  76 kB   00:00
+aws_instance.myecs (remote-exec): (5/5): amzn2-c 29% |  15 MB   --:-- ETA
+aws_instance.myecs (remote-exec): (5/5): amzn2-c 56% |  29 MB   00:01 ETA
+aws_instance.myecs (remote-exec): (5/5): amzn2-c 83% |  44 MB   00:00 ETA
+aws_instance.myecs (remote-exec): (5/5): amzn2-core/ |  52 MB   00:01
+aws_instance.myecs (remote-exec): Resolving Dependencies
+aws_instance.myecs (remote-exec): --> Running transaction check
+aws_instance.myecs (remote-exec): ---> Package docker.x86_64 0:20.10.4-1.amzn2 will be installed
+aws_instance.myecs (remote-exec): --> Processing Dependency: runc >= 1.0.0 for package: docker-20.10.4-1.amzn2.x86_64
+aws_instance.myecs (remote-exec): --> Processing Dependency: libcgroup >= 0.40.rc1-5.15 for package: docker-20.10.4-1.amzn2.x86_64
+aws_instance.myecs (remote-exec): --> Processing Dependency: containerd >= 1.3.2 for package: docker-20.10.4-1.amzn2.x86_64
+aws_instance.myecs (remote-exec): --> Processing Dependency: pigz for package: docker-20.10.4-1.amzn2.x86_64
+aws_instance.myecs (remote-exec): --> Running transaction check
+aws_instance.myecs (remote-exec): ---> Package containerd.x86_64 0:1.4.4-1.amzn2 will be installed
+aws_instance.myecs (remote-exec): ---> Package libcgroup.x86_64 0:0.41-21.amzn2 will be installed
+aws_instance.myecs (remote-exec): ---> Package pigz.x86_64 0:2.3.4-1.amzn2.0.1 will be installed
+aws_instance.myecs (remote-exec): ---> Package runc.x86_64 0:1.0.0-0.1.20210225.git12644e6.amzn2 will be installed
+aws_instance.myecs (remote-exec): --> Finished Dependency Resolution
+
+aws_instance.myecs (remote-exec): Dependencies Resolved
+
+aws_instance.myecs (remote-exec): ========================================
+aws_instance.myecs (remote-exec):  Package
+aws_instance.myecs (remote-exec):       Arch   Version
+aws_instance.myecs (remote-exec):                 Repository         Size
+aws_instance.myecs (remote-exec): ========================================
+aws_instance.myecs (remote-exec): Installing:
+aws_instance.myecs (remote-exec):  docker
+aws_instance.myecs (remote-exec):       x86_64 20.10.4-1.amzn2
+aws_instance.myecs (remote-exec):                 amzn2extra-docker  32 M
+aws_instance.myecs (remote-exec): Installing for dependencies:
+aws_instance.myecs (remote-exec):  containerd
+aws_instance.myecs (remote-exec):       x86_64 1.4.4-1.amzn2
+aws_instance.myecs (remote-exec):                 amzn2extra-docker  24 M
+aws_instance.myecs (remote-exec):  libcgroup
+aws_instance.myecs (remote-exec):       x86_64 0.41-21.amzn2
+aws_instance.myecs (remote-exec):                 amzn2-core         66 k
+aws_instance.myecs (remote-exec):  pigz x86_64 2.3.4-1.amzn2.0.1
+aws_instance.myecs (remote-exec):                 amzn2-core         81 k
+aws_instance.myecs (remote-exec):  runc x86_64 1.0.0-0.1.20210225.git12644e6.amzn2
+aws_instance.myecs (remote-exec):                 amzn2extra-docker 3.2 M
+
+aws_instance.myecs (remote-exec): Transaction Summary
+aws_instance.myecs (remote-exec): ========================================
+aws_instance.myecs (remote-exec): Install  1 Package (+4 Dependent packages)
+
+aws_instance.myecs (remote-exec): Total download size: 59 M
+aws_instance.myecs (remote-exec): Installed size: 243 M
+aws_instance.myecs (remote-exec): Downloading packages:
+aws_instance.myecs (remote-exec): (1/5): pigz-2.3.4- |  81 kB   00:00
+aws_instance.myecs (remote-exec): (2/5): libcgroup-0 |  66 kB   00:00
+aws_instance.myecs (remote-exec): (4/5): docker-2 9% | 5.4 MB   --:-- ETA
+aws_instance.myecs (remote-exec): (4/5): docker- 25% |  15 MB   00:03 ETA
+aws_instance.myecs (remote-exec): (4/5): docker- 42% |  25 MB   00:02 ETA
+aws_instance.myecs (remote-exec): (4/5): docker- 61% |  36 MB   00:01 ETA
+aws_instance.myecs (remote-exec): (3/5): containerd- |  24 MB   00:01
+aws_instance.myecs (remote-exec): (4/5): docker- 86% |  51 MB   00:00 ETA
+aws_instance.myecs (remote-exec): (4/5): docker-20.1 |  32 MB   00:02
+aws_instance.myecs (remote-exec): (5/5): runc-1.0.0- | 3.2 MB   00:00
+aws_instance.myecs (remote-exec): ----------------------------------------
+aws_instance.myecs (remote-exec): Total       29 MB/s |  59 MB  00:02
+aws_instance.myecs (remote-exec): Running transaction check
+aws_instance.myecs (remote-exec): Running transaction test
+aws_instance.myecs (remote-exec): Transaction test succeeded
+aws_instance.myecs (remote-exec): Running transaction
+aws_instance.myecs (remote-exec):   Installing : runc-1.0 [         ] 1/5
+aws_instance.myecs (remote-exec):   Installing : runc-1.0 [#        ] 1/5
+aws_instance.myecs (remote-exec):   Installing : runc-1.0 [##       ] 1/5
+aws_instance.myecs (remote-exec):   Installing : runc-1.0 [###      ] 1/5
+aws_instance.myecs (remote-exec):   Installing : runc-1.0 [####     ] 1/5
+aws_instance.myecs (remote-exec):   Installing : runc-1.0 [#####    ] 1/5
+aws_instance.myecs (remote-exec):   Installing : runc-1.0 [######   ] 1/5
+aws_instance.myecs (remote-exec):   Installing : runc-1.0 [#######  ] 1/5
+aws_instance.myecs (remote-exec):   Installing : runc-1.0 [######## ] 1/5
+aws_instance.myecs (remote-exec):   Installing : runc-1.0.0-0.1.202   1/5
+aws_instance.myecs (remote-exec):   Installing : containe [         ] 2/5
+aws_instance.myecs (remote-exec):   Installing : containe [#        ] 2/5
+aws_instance.myecs (remote-exec):   Installing : containe [##       ] 2/5
+aws_instance.myecs (remote-exec):   Installing : containe [###      ] 2/5
+aws_instance.myecs (remote-exec):   Installing : containe [####     ] 2/5
+aws_instance.myecs: Still creating... [1m0s elapsed]
+aws_instance.myecs (remote-exec):   Installing : containe [#####    ] 2/5
+aws_instance.myecs (remote-exec):   Installing : containe [######   ] 2/5
+aws_instance.myecs (remote-exec):   Installing : containe [#######  ] 2/5
+aws_instance.myecs (remote-exec):   Installing : containe [######## ] 2/5
+aws_instance.myecs (remote-exec):   Installing : containerd-1.4.4-1   2/5
+aws_instance.myecs (remote-exec):   Installing : libcgrou [         ] 3/5
+aws_instance.myecs (remote-exec):   Installing : libcgrou [####     ] 3/5
+aws_instance.myecs (remote-exec):   Installing : libcgrou [######   ] 3/5
+aws_instance.myecs (remote-exec):   Installing : libcgrou [######## ] 3/5
+aws_instance.myecs (remote-exec):   Installing : libcgroup-0.41-21.   3/5
+aws_instance.myecs (remote-exec):   Installing : pigz-2.3 [         ] 4/5
+aws_instance.myecs (remote-exec):   Installing : pigz-2.3 [#        ] 4/5
+aws_instance.myecs (remote-exec):   Installing : pigz-2.3 [######   ] 4/5
+aws_instance.myecs (remote-exec):   Installing : pigz-2.3 [######## ] 4/5
+aws_instance.myecs (remote-exec):   Installing : pigz-2.3.4-1.amzn2   4/5
+aws_instance.myecs (remote-exec):   Installing : docker-2 [         ] 5/5
+aws_instance.myecs (remote-exec):   Installing : docker-2 [#        ] 5/5
+aws_instance.myecs (remote-exec):   Installing : docker-2 [##       ] 5/5
+aws_instance.myecs (remote-exec):   Installing : docker-2 [###      ] 5/5
+aws_instance.myecs (remote-exec):   Installing : docker-2 [####     ] 5/5
+aws_instance.myecs (remote-exec):   Installing : docker-2 [#####    ] 5/5
+aws_instance.myecs (remote-exec):   Installing : docker-2 [######   ] 5/5
+aws_instance.myecs (remote-exec):   Installing : docker-2 [#######  ] 5/5
+aws_instance.myecs (remote-exec):   Installing : docker-2 [######## ] 5/5
+aws_instance.myecs (remote-exec):   Installing : docker-20.10.4-1.a   5/5
+aws_instance.myecs (remote-exec):   Verifying  : containerd-1.4.4-1   1/5
+aws_instance.myecs (remote-exec):   Verifying  : docker-20.10.4-1.a   2/5
+aws_instance.myecs (remote-exec):   Verifying  : pigz-2.3.4-1.amzn2   3/5
+aws_instance.myecs (remote-exec):   Verifying  : runc-1.0.0-0.1.202   4/5
+aws_instance.myecs (remote-exec):   Verifying  : libcgroup-0.41-21.   5/5
+
+aws_instance.myecs (remote-exec): Installed:
+aws_instance.myecs (remote-exec):   docker.x86_64 0:20.10.4-1.amzn2
+
+aws_instance.myecs (remote-exec): Dependency Installed:
+aws_instance.myecs (remote-exec):   containerd.x86_64 0:1.4.4-1.amzn2
+aws_instance.myecs (remote-exec):   libcgroup.x86_64 0:0.41-21.amzn2
+aws_instance.myecs (remote-exec):   pigz.x86_64 0:2.3.4-1.amzn2.0.1
+aws_instance.myecs (remote-exec):   runc.x86_64 0:1.0.0-0.1.20210225.git12644e6.amzn2
+
+aws_instance.myecs (remote-exec): Complete!
+aws_instance.myecs (remote-exec):   0  ansible2                 available    \
+aws_instance.myecs (remote-exec):         [ =2.4.2  =2.4.6  =2.8  =stable ]
+aws_instance.myecs (remote-exec):   2  httpd_modules            available    [ =1.0  =stable ]
+aws_instance.myecs (remote-exec):   3  memcached1.5             available    \
+aws_instance.myecs (remote-exec):         [ =1.5.1  =1.5.16  =1.5.17 ]
+aws_instance.myecs (remote-exec):   5  postgresql9.6            available    \
+aws_instance.myecs (remote-exec):         [ =9.6.6  =9.6.8  =stable ]
+aws_instance.myecs (remote-exec):   6  postgresql10             available    [ =10  =stable ]
+aws_instance.myecs (remote-exec):   8  redis4.0                 available    \
+aws_instance.myecs (remote-exec):         [ =4.0.5  =4.0.10  =stable ]
+aws_instance.myecs (remote-exec):   9  R3.4                     available    [ =3.4.3  =stable ]
+aws_instance.myecs (remote-exec):  10  rust1                    available    \
+aws_instance.myecs (remote-exec):         [ =1.22.1  =1.26.0  =1.26.1  =1.27.2  =1.31.0  =1.38.0
+aws_instance.myecs (remote-exec):           =stable ]
+aws_instance.myecs (remote-exec):  11  vim                      available    [ =8.0  =stable ]
+aws_instance.myecs (remote-exec):  15  php7.2                   available    \
+aws_instance.myecs (remote-exec):         [ =7.2.0  =7.2.4  =7.2.5  =7.2.8  =7.2.11  =7.2.13  =7.2.14
+aws_instance.myecs (remote-exec):           =7.2.16  =7.2.17  =7.2.19  =7.2.21  =7.2.22  =7.2.23
+aws_instance.myecs (remote-exec):           =7.2.24  =7.2.26  =stable ]
+aws_instance.myecs (remote-exec):  17  lamp-mariadb10.2-php7.2  available    \
+aws_instance.myecs (remote-exec):         [ =10.2.10_7.2.0  =10.2.10_7.2.4  =10.2.10_7.2.5
+aws_instance.myecs (remote-exec):           =10.2.10_7.2.8  =10.2.10_7.2.11  =10.2.10_7.2.13
+aws_instance.myecs (remote-exec):           =10.2.10_7.2.14  =10.2.10_7.2.16  =10.2.10_7.2.17
+aws_instance.myecs (remote-exec):           =10.2.10_7.2.19  =10.2.10_7.2.22  =10.2.10_7.2.23
+aws_instance.myecs (remote-exec):           =10.2.10_7.2.24  =stable ]
+aws_instance.myecs (remote-exec):  18  libreoffice              available    \
+aws_instance.myecs (remote-exec):         [ =5.0.6.2_15  =5.3.6.1  =stable ]
+aws_instance.myecs (remote-exec):  19  gimp                     available    [ =2.8.22 ]
+aws_instance.myecs (remote-exec):  20  docker=latest            enabled      \
+aws_instance.myecs (remote-exec):         [ =17.12.1  =18.03.1  =18.06.1  =18.09.9  =stable ]
+aws_instance.myecs (remote-exec):  21  mate-desktop1.x          available    \
+aws_instance.myecs (remote-exec):         [ =1.19.0  =1.20.0  =stable ]
+aws_instance.myecs (remote-exec):  22  GraphicsMagick1.3        available    \
+aws_instance.myecs (remote-exec):         [ =1.3.29  =1.3.32  =1.3.34  =stable ]
+aws_instance.myecs (remote-exec):  23  tomcat8.5                available    \
+aws_instance.myecs (remote-exec):         [ =8.5.31  =8.5.32  =8.5.38  =8.5.40  =8.5.42  =8.5.50
+aws_instance.myecs (remote-exec):           =stable ]
+aws_instance.myecs (remote-exec):  24  epel                     available    [ =7.11  =stable ]
+aws_instance.myecs (remote-exec):  25  testing                  available    [ =1.0  =stable ]
+aws_instance.myecs (remote-exec):  26  ecs                      available    [ =stable ]
+aws_instance.myecs (remote-exec):  27  corretto8                available    \
+aws_instance.myecs (remote-exec):         [ =1.8.0_192  =1.8.0_202  =1.8.0_212  =1.8.0_222  =1.8.0_232
+aws_instance.myecs (remote-exec):           =1.8.0_242  =stable ]
+aws_instance.myecs (remote-exec):  28  firecracker              available    [ =0.11  =stable ]
+aws_instance.myecs (remote-exec):  29  golang1.11               available    \
+aws_instance.myecs (remote-exec):         [ =1.11.3  =1.11.11  =1.11.13  =stable ]
+aws_instance.myecs (remote-exec):  30  squid4                   available    [ =4  =stable ]
+aws_instance.myecs (remote-exec):  31  php7.3                   available    \
+aws_instance.myecs (remote-exec):         [ =7.3.2  =7.3.3  =7.3.4  =7.3.6  =7.3.8  =7.3.9  =7.3.10
+aws_instance.myecs (remote-exec):           =7.3.11  =7.3.13  =stable ]
+aws_instance.myecs (remote-exec):  32  lustre2.10               available    \
+aws_instance.myecs (remote-exec):         [ =2.10.5  =2.10.8  =stable ]
+aws_instance.myecs (remote-exec):  33  java-openjdk11           available    [ =11  =stable ]
+aws_instance.myecs (remote-exec):  34  lynis                    available    [ =stable ]
+aws_instance.myecs (remote-exec):  35  kernel-ng                available    [ =stable ]
+aws_instance.myecs (remote-exec):  36  BCC                      available    [ =0.x  =stable ]
+aws_instance.myecs (remote-exec):  37  mono                     available    [ =5.x  =stable ]
+aws_instance.myecs (remote-exec):  38  nginx1                   available    [ =stable ]
+aws_instance.myecs (remote-exec):  39  ruby2.6                  available    [ =2.6  =stable ]
+aws_instance.myecs (remote-exec):  40  mock                     available    [ =stable ]
+aws_instance.myecs (remote-exec):  41  postgresql11             available    [ =11  =stable ]
+aws_instance.myecs (remote-exec):  42  php7.4                   available    [ =stable ]
+aws_instance.myecs (remote-exec):  43  livepatch                available    [ =stable ]
+aws_instance.myecs (remote-exec):  44  python3.8                available    [ =stable ]
+aws_instance.myecs (remote-exec):  45  haproxy2                 available    [ =stable ]
+aws_instance.myecs (remote-exec):  46  collectd                 available    [ =stable ]
+aws_instance.myecs (remote-exec):  47  aws-nitro-enclaves-cli   available    [ =stable ]
+aws_instance.myecs (remote-exec):  48  R4                       available    [ =stable ]
+aws_instance.myecs (remote-exec):  49  kernel-5.4               available    [ =stable ]
+aws_instance.myecs (remote-exec):  50  selinux-ng               available    [ =stable ]
+aws_instance.myecs (remote-exec):  51  php8.0                   available    [ =stable ]
+aws_instance.myecs (remote-exec):  52  tomcat9                  available    [ =stable ]
+aws_instance.myecs (remote-exec):  53  unbound1.13              available    [ =stable ]
+aws_instance.myecs (remote-exec):  54  mariadb10.5              available    [ =stable ]
+aws_instance.myecs (remote-exec):  55  kernel-5.10              available    [ =stable ]
+aws_instance.myecs (remote-exec): Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+aws_instance.myecs: Still creating... [1m10s elapsed]
+aws_instance.myecs (remote-exec): 3.13.1: Pulling from library/rocket.chat
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 7080bf773c09: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Pulling fs layer
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Waiting
+
+aws_instance.myecs (remote-exec): 7080bf773c09: Downloading     424B/1.806kB
+
+aws_instance.myecs (remote-exec): 7080bf773c09: Verifying Checksum
+
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Downloading  277.5kB/27.14MB
+aws_instance.myecs (remote-exec):
+
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Downloading  3.618MB/27.14MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Downloading  8.075MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Downloading  12.28MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Downloading  16.21MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Downloading  14.84MB/24.13MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Downloading  20.39MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Downloading  24.02MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Downloading  23.19MB/24.13MB
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Verifying Checksum
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Verifying Checksum
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Download complete
+aws_instance.myecs (remote-exec):
+
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  294.9kB/27.14MBB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting   1.18MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  3.216MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  7.505MB/167.8MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  2.064MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  11.23MB/167.8MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  2.654MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  19.27MB/167.8MB
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  3.244MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  32.11MB/167.8MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  3.834MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  44.97MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  4.424MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  50.32MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  5.014MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading   55.7MB/167.8MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  5.898MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  69.07MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  6.488MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  74.43MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  79.77MB/167.8MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  7.078MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  86.21MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  7.668MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  92.62MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  97.45MB/167.8MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  7.963MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  101.8MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  8.552MB/27.14MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  9.142MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  9.732MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  115.1MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  10.32MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  118.3MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting   11.8MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  124.2MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  12.68MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  131.7MB/167.8MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  14.16MB/27.14MBB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  15.04MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  146.1MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  16.22MB/27.14MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  153.6MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading  161.1MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Downloading    167MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting   17.1MB/27.14MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  18.87MB/27.14MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  21.82MB/27.14MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  24.18MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  24.77MB/27.14MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  25.66MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  26.25MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  26.54MB/27.14MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  27.13MB/27.14MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Extracting  27.14MB/27.14MB
+
+aws_instance.myecs (remote-exec): f7ec5a41d630: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  262.1kB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  2.884MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  5.767MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  8.913MB/24.13MB
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  11.53MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  14.16MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  16.52MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  17.83MB/24.13MB
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  18.87MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  19.92MB/24.13MB
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  20.45MB/24.13MB
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  20.71MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  20.97MB/24.13MB
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting   21.5MB/24.13MB
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  21.76MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  22.54MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  23.07MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  23.59MB/24.13MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  24.12MB/24.13MB
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Extracting  24.13MB/24.13MB
+
+aws_instance.myecs (remote-exec): 826bf17f1376: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 7080bf773c09: Extracting  1.806kB/1.806kB
+
+aws_instance.myecs (remote-exec): 7080bf773c09: Extracting  1.806kB/1.806kB
+
+aws_instance.myecs (remote-exec): 7080bf773c09: Pull complete
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  557.1kB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  1.114MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  3.342MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  5.571MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  6.685MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  7.242MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  8.913MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   9.47MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  10.03MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  11.14MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   11.7MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  12.26MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  12.81MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  13.37MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  14.48MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   15.6MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  16.71MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  17.27MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  17.83MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  18.38MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  18.94MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   19.5MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  20.05MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  21.17MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  22.28MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   23.4MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  24.51MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  25.62MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   27.3MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  28.41MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  29.52MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  30.64MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   31.2MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  32.31MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  32.87MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  33.42MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  33.98MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  34.54MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  35.09MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  35.65MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  36.21MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  36.77MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  37.88MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  38.44MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  38.99MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  39.55MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  40.11MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  40.67MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  41.22MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  42.89MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  43.45MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  44.01MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  44.56MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  45.12MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  45.68MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  46.79MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  47.35MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  47.91MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  48.46MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  49.02MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  49.58MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  50.14MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  50.69MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  51.81MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  52.36MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  54.03MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  54.59MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  57.38MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  57.93MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  58.49MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   59.6MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  60.16MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  60.72MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  61.28MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  61.83MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  62.39MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  62.95MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   63.5MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  64.62MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  66.29MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  67.96MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  69.63MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   71.3MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  72.97MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  74.09MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  74.65MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   75.2MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  76.32MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  76.87MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  77.43MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  80.77MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  81.33MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  81.89MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting     83MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  83.56MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  84.12MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  84.67MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  85.23MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  85.79MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  86.34MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   86.9MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  87.46MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  88.01MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  88.57MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  89.69MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  92.47MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  94.14MB/167.8MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   94.7MB/167.8MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  95.26MB/167.8MB
+aws_instance.myecs (remote-exec):
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  96.93MB/167.8MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting   98.6MB/167.8MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  100.3MB/167.8MB
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  101.9MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  102.5MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  103.6MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  105.8MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  106.4MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  107.5MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  108.1MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  108.6MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  109.2MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  109.7MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  110.9MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting    112MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  114.8MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting    117MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  119.8MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  120.9MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  121.4MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting    122MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  122.6MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  123.1MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  124.2MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  124.8MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  125.3MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  125.9MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  126.5MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting    127MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  128.1MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  128.7MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  129.8MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  131.5MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  133.1MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  135.4MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting    137MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  139.3MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  141.5MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  142.6MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  148.2MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting    151MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  153.2MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  154.9MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting    156MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  156.5MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  157.1MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  157.6MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  164.9MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  167.7MB/167.8MB
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Extracting  167.8MB/167.8MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 391b7dc157ec: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): Digest: sha256:7ef506691872f680c052573916afc2876b981fa4b82f810fa78b43c50afd1bbc
+aws_instance.myecs (remote-exec): Status: Downloaded newer image for rocket.chat:3.13.1
+aws_instance.myecs (remote-exec): docker.io/library/rocket.chat:3.13.1
+aws_instance.myecs (remote-exec): Unable to find image 'mongo:4.0' locally
+aws_instance.myecs (remote-exec): 4.0: Pulling from library/mongo
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fb52bde70123: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 64788f86be3f: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 33f6d5f2e001: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 570e56656608: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f518a872ab12: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): c9bdae151f64: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): b2c58da5f563: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 0e555232f3af: Pulling fs layer
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 56d352d41835: Pulling fs layer
+
+aws_instance.myecs (remote-exec): 33f6d5f2e001: Waiting
+aws_instance.myecs (remote-exec): fd0577d10f34: Pulling fs layer
+
+aws_instance.myecs (remote-exec): 570e56656608: Waiting
+aws_instance.myecs (remote-exec): aaf8f29a4010: Pulling fs layer
+
+aws_instance.myecs (remote-exec): f518a872ab12: Waiting
+aws_instance.myecs (remote-exec): f40d85367b0e: Pulling fs layer
+
+aws_instance.myecs (remote-exec): c9bdae151f64: Waiting
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): b2c58da5f563: Waiting
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 0e555232f3af: Waiting
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): fb52bde70123: Downloading     851B/851B
+
+aws_instance.myecs (remote-exec): fb52bde70123: Verifying Checksum
+
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Downloading  474.1kB/46.25MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 64788f86be3f: Downloading     426B/527B
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 64788f86be3f: Downloading     527B/527B
+
+aws_instance.myecs (remote-exec): 64788f86be3f: Verifying Checksum
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Downloading  5.667MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Downloading  10.84MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Downloading  18.81MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+
+
+aws_instance.myecs (remote-exec): 33f6d5f2e001: Downloading     169B/169B
+
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Downloading  27.31MB/46.25MB
+aws_instance.myecs (remote-exec): 33f6d5f2e001: Download complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 570e56656608: Downloading     425B/1.989kB
+
+aws_instance.myecs (remote-exec): 570e56656608: Downloading  1.989kB/1.989kB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Downloading  34.82MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Downloading  42.85MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Verifying Checksum
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Download complete
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  491.5kB/46.25MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  2.458MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f518a872ab12: Downloading  29.17kB/2.906MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): f518a872ab12: Downloading  1.047MB/2.906MB
+
+aws_instance.myecs (remote-exec): f518a872ab12: Verifying Checksum
+
+aws_instance.myecs (remote-exec): f518a872ab12: Download complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): c9bdae151f64: Downloading  13.69kB/1.305MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  3.932MB/46.25MBB
+aws_instance.myecs (remote-exec):
+aws_instance.myecs (remote-exec): c9bdae151f64: Verifying Checksum
+
+aws_instance.myecs (remote-exec): c9bdae151f64: Download complete
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  4.915MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  7.373MB/46.25MB
+aws_instance.myecs (remote-exec): b2c58da5f563: Verifying Checksum
+
+aws_instance.myecs (remote-exec): b2c58da5f563: Download complete
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting   9.83MB/46.25MBB
+aws_instance.myecs (remote-exec):
+aws_instance.myecs (remote-exec): 0e555232f3af: Downloading  1.428kB/1.428kB
+aws_instance.myecs (remote-exec): 0e555232f3af: Verifying Checksum
+aws_instance.myecs (remote-exec): 0e555232f3af: Download complete
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  12.78MB/46.25MB
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  14.75MB/46.25MB
+aws_instance.myecs (remote-exec): 56d352d41835: Downloading     239B/239B
+aws_instance.myecs (remote-exec): 56d352d41835: Verifying Checksum
+aws_instance.myecs (remote-exec): 56d352d41835: Download complete
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  15.73MB/46.25MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  539.1kB/106MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  6.966MB/106MB
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting   17.2MB/46.25MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  13.93MB/106MB
+aws_instance.myecs (remote-exec): ... [2m0s elapsed]
+aws_instance.myecs (remote-exec): aaf8f29a4010: Downloading     169B/169B
+aws_instance.myecs (remote-exec): aaf8f29a4010: Verifying Checksum
+aws_instance.myecs (remote-exec): aaf8f29a4010: Download complete
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  18.68MB/46.25MB
+aws_instance.myecs (remote-exec): f40d85367b0e: Downloading     425B/4.425kB
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  19.66MB/46.25MB
+aws_instance.myecs (remote-exec): f40d85367b0e: Verifying Checksum
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  21.63MB/46.25MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  27.31MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  32.66MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting   23.1MB/46.25MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  40.15MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  24.08MB/46.25MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  47.66MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  25.07MB/46.25MB
+aws_instance.myecs (remote-exec):
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  26.54MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  63.68MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  28.02MB/46.25MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  70.62MB/106MB
+aws_instance.myecs (remote-exec):
+
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  78.14MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  86.17MB/106MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading   92.6MB/106MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting     29MB/46.25MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  100.1MB/106MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  29.98MB/46.25MB
+aws_instance.myecs (remote-exec): fd0577d10f34: Downloading  104.4MB/106MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  31.46MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  32.93MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting   34.9MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  35.88MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  36.86MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  37.85MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  39.32MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting   40.8MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  42.27MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  44.24MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  45.71MB/46.25MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting   46.2MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Extracting  46.25MB/46.25MB
+
+aws_instance.myecs (remote-exec): 92473f7ef455: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fb52bde70123: Extracting     851B/851B
+
+aws_instance.myecs (remote-exec): fb52bde70123: Extracting     851B/851B
+
+aws_instance.myecs (remote-exec): fb52bde70123: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 64788f86be3f: Extracting     527B/527B
+
+aws_instance.myecs (remote-exec): 64788f86be3f: Extracting     527B/527B
+
+aws_instance.myecs (remote-exec): 64788f86be3f: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 33f6d5f2e001: Extracting     169B/169B
+
+aws_instance.myecs (remote-exec): 33f6d5f2e001: Extracting     169B/169B
+
+aws_instance.myecs (remote-exec): 33f6d5f2e001: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 570e56656608: Extracting  1.989kB/1.989kB
+
+aws_instance.myecs (remote-exec): 570e56656608: Extracting  1.989kB/1.989kB
+
+aws_instance.myecs (remote-exec): 570e56656608: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f518a872ab12: Extracting  32.77kB/2.906MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f518a872ab12: Extracting  327.7kB/2.906MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f518a872ab12: Extracting  2.228MB/2.906MB
+
+aws_instance.myecs (remote-exec): f518a872ab12: Extracting  2.906MB/2.906MB
+
+aws_instance.myecs (remote-exec): f518a872ab12: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): c9bdae151f64: Extracting  32.77kB/1.305MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): c9bdae151f64: Extracting  1.212MB/1.305MB
+
+aws_instance.myecs (remote-exec): c9bdae151f64: Extracting  1.305MB/1.305MB
+
+aws_instance.myecs (remote-exec): c9bdae151f64: Extracting  1.305MB/1.305MB
+
+aws_instance.myecs (remote-exec): c9bdae151f64: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): b2c58da5f563: Extracting     149B/149B
+
+aws_instance.myecs (remote-exec): b2c58da5f563: Extracting     149B/149B
+
+aws_instance.myecs (remote-exec): b2c58da5f563: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 0e555232f3af: Extracting  1.428kB/1.428kB
+
+aws_instance.myecs (remote-exec): 0e555232f3af: Extracting  1.428kB/1.428kB
+
+aws_instance.myecs (remote-exec): 0e555232f3af: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): 56d352d41835: Extracting     239B/239B
+
+aws_instance.myecs (remote-exec): 56d352d41835: Extracting     239B/239B
+
+aws_instance.myecs (remote-exec): 56d352d41835: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  557.1kB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  2.785MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  7.242MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  10.03MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  13.37MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  16.15MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  20.05MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  21.73MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  23.95MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting   27.3MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  30.08MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  33.42MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  36.77MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  40.67MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  43.45MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  45.12MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  47.35MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  51.25MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  53.48MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  57.38MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting   59.6MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting   63.5MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  65.73MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  69.63MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  71.86MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  75.76MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  78.54MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  81.33MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  84.12MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  88.57MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  91.36MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  95.26MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  97.48MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  101.4MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  104.2MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  105.3MB/106MB
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting  105.8MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Extracting    106MB/106MB
+
+aws_instance.myecs (remote-exec): fd0577d10f34: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): aaf8f29a4010: Extracting     169B/169B
+
+aws_instance.myecs (remote-exec): aaf8f29a4010: Extracting     169B/169B
+
+aws_instance.myecs (remote-exec): aaf8f29a4010: Pull complete
+aws_instance.myecs (remote-exec):
+
+aws_instance.myecs (remote-exec): f40d85367b0e: Extracting  4.425kB/4.425kB
+
+aws_instance.myecs (remote-exec): f40d85367b0e: Extracting  4.425kB/4.425kB
+
+aws_instance.myecs (remote-exec): f40d85367b0e: Pull complete
+aws_instance.myecs (remote-exec):
+                                  Digest: sha256:189a3415a991d40e2808f54548190a5df264c8ecbf20616a7ed4af0ec1cf95a5
+aws_instance.myecs (remote-exec): Status: Downloaded newer image for mongo:4.0
+aws_instance.myecs (remote-exec): 2306fdcb8098c38eb93a51501e3999b8f40923483b387178d283071639f9c58f
+aws_instance.myecs (remote-exec): 74314c4ae77a0bf40f8aaf4cf4e2a51e2725c882169b278986fa05d17551776d
+aws_instance.myecs: Still creating... [2m10s elapsed]
+aws_instance.myecs: Creation complete after 2m12s [id=i-0e4576f9acb8fdf2f]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+C:\Users\LMNX7392\Desktop\Terraform_lab\system_task>
